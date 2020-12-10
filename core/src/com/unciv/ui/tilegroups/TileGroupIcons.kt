@@ -23,7 +23,7 @@ class TileGroupIcons(val tileGroup: TileGroup){
         updateResourceIcon(showResourcesAndImprovements)
         updateImprovementIcon(showResourcesAndImprovements)
 
-        updateYieldIcon(showTileYields) // JN
+        if(viewingCiv != null) updateYieldIcon(showTileYields, viewingCiv) // JN
 
         civilianUnitIcon = newUnitIcon(tileGroup.tileInfo.civilianUnit, civilianUnitIcon,
                 tileIsViewable, -20f, viewingCiv)
@@ -117,7 +117,7 @@ class TileGroupIcons(val tileGroup: TileGroup){
     }
 
     // JN updating display of tile yields
-    private fun updateYieldIcon(showTileYields: Boolean) {
+    private fun updateYieldIcon(showTileYields: Boolean, viewingCiv: CivilizationInfo) {
 
         // Hiding yield icons (in order to update)
         tileGroup.tileYieldGroup.isVisible = false
@@ -125,7 +125,7 @@ class TileGroupIcons(val tileGroup: TileGroup){
 
         if (showTileYields) {
             // Setting up YieldGroup Icon
-            tileGroup.tileYieldGroup.setStats(tileGroup.tileInfo.getTileStats(CivilizationInfo()))
+            tileGroup.tileYieldGroup.setStats(tileGroup.tileInfo.getTileStats(viewingCiv))
             tileGroup.tileYieldGroup.setOrigin(Align.center)
             tileGroup.tileYieldGroup.setScale(0.7f)
             tileGroup.tileYieldGroup.toFront()
